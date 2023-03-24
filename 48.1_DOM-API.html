@@ -1,0 +1,195 @@
+<!-- Using the DOM API we can interact with the HTML elements and the browser window using JavaScript. DOM stands for Document Object Model. It models the HTML document as 1 multi-layered object. That means, everything we see in the HTML page is considered as an object in JavaScript.
+
+When an HTML document is loaded into a web browser, it becomes a document object, we can’t load more than one HTML document at a time.
+
+DOM is not a programming language, it is an interface through which JavaScript access the elements of HTML pages. -->
+
+<!-- DOM Methods
+    *************
+    Here are a few widely used DOM methods.
+
+    - getElementById(id): It is used to access element by its id.
+
+    - getAttribute("attributeName"): It is used to access the tag attribute of the DOM object 
+
+    - write("message") - this will overwrite the existing HTML content of the page with the message given.  -->
+
+<!-- DOM Atttributes
+    *****************
+    Few widely used DOM atttributes are as follows-
+
+    - innerHTML: innerHTML is used to set or get the HTML content of the element.
+
+    - innerText: innerText is used to set or get the Text content to element.
+
+    - value: value is used to get or set value of the element.
+
+    - checked: checked is used on checkbox and radio button. It is used to check either they are checked or not. If they are checked, it returns true else it returns false.
+
+    - disabled: disabled is used to get or set the disabled status of the element. If disabled is set to true, then the element becomes disabled. -->
+
+<!-- Some common methods associated with the window object are:
+
+    - alert("message") - this will display an alert box with the given message
+
+    - confirm("message") - this will display an confirm box with the given message 
+   
+Since window is the top most object, we can ignore it in the code. 
+
+For example: "window.alert("Hello");" is the same as "alert("Hello");"-->
+
+<!-- 
+Event Handling
+**************
+The user interacts with the HTML elements and each of these interactions is what we  call as an event.
+
+Event Attribute     Description
+===============     ===========
+onclick	            The event occurs when the user clicks an HTML element.
+onload	            The event occurs when the browser has finished loading the pages.
+onchange            The event occurs when the user adds/removes some text in the input field.
+mouseover	        The event occurs when the user moves the mouse over an HTML element.
+onfocus	            The event occurs when an element gets focus
+onblur	            The event occurs when an element loses focus
+onkeyup	            The event occurs when the user releases a key 
+
+The JavaScript code(called specifically as function) is written to respond to these events are called as event handlers.-->
+
+<!-- The script to access DOM should be after all the DOM elements are loaded. Therefore the script tag for DOM access is placed as the last statement of the body tag
+
+This example will cover previous concepts. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DOM Example</title>
+</head>
+<body>
+    <div>
+        <div>
+            <label for="name">Name: </label>
+            <input type="text" id="name" name="name">   <!-- id=name -->
+        </div>
+        <div>
+            <p>Choose you favourite: </p> <!-- Block-Level Element -->
+            <input type="checkbox" id="html" name="fav" value="html" />     <!-- id=html -->
+            <label for="scales">html</label>
+            <input type="checkbox" id="js" name="fav" value="js" /> <!-- id=js -->
+            <label for="scales">js</label>
+        </div>
+        <div>
+            <p>Choose your gender: </p>  <!-- Block-Level Element -->
+            <input type="radio" id="male" name="gender" value="male" />     <!-- id=male -->
+            <label for="huey">Male</label>
+            <input type="radio" id="female" name="gender" value="female" />   <!-- id=female -->
+            <label for="huey">Female</label>
+        </div>
+        <button onclick="check()">Submit</button>  <!-- onclick attribute-->
+        <div id="nameValue"></div>
+        <div id="checkedValue"></div>
+        <div id="radioValue"></div>
+
+        <!-- Event Object
+        ******************
+        Let us take a closer look at what happens when an event occurs. When an event occurs, an event object is created, which will have details about the event. In order to access the event object, we need to pass it in the event handler as a parameter as shown: -->
+
+        <input type="radio" onclick="display(event)" name="nameMale" value="valueMale">Male
+
+        <!-- Event Bubbling
+        ********************
+        When an event occurs on an element, that event 'bubbles' up to all its parent tags as well. This will in turn trigger the event handlers of those parent tags as well.
+        
+        Consider the below code. -->
+
+        <div style="border:1px solid;padding:10px" onclick="div1Click(event)">
+            Div 1
+            <div style="border:1px solid;padding: 10px" onclick="div2Click(event)">
+                Div 2
+            </div>
+        </div>
+        <!-- Div2 is a child of Div1. Both of them have onclick event handlers which execute different functions. When Div2 is clicked, it executes the div2Click() and then the event bubbles up to its parent which is Div1. Now the click event comes to Div1 and it executes div1Click() event handler as well. This is called as event bubbling. -->
+
+        <!-- Event Prevention
+        **********************
+        Consider the below code. -->
+
+        <form onsubmit="formSubmit(event)">
+            Username: <input id="usr">
+            <button type="submit">Login</button>
+            <div id="msg"></div>
+        </form>
+    </div>
+    <script>
+        function check() {
+            // name
+            name = document.getElementById("name").value;
+            document.getElementById("nameValue").innerHTML = "Name: " + name;
+            // checkbox
+            html = document.getElementById("html").checked; // true/false 
+            js = document.getElementById("js").checked;     // true/false
+            if (html && js) {
+                document.getElementById("checkedValue").innerHTML = "You checked both html and js";
+            }
+            else if (html) {
+                document.getElementById("checkedValue").innerHTML = "You checked html";
+            }
+            else if (js) {
+                document.getElementById("checkedValue").innerHTML = "You checked js";
+            }
+            else {
+                document.getElementById("checkedValue").innerHTML = "You checked none";
+            }
+            // radio button
+            male = document.getElementById("male").checked; //true/false
+            female = document.getElementById("female").checked; //true/false
+            if (male) {
+                document.getElementById("radioValue").innerHTML = "Gender: Male";
+            }
+            else if (female) {
+                document.getElementById("radioValue").innerHTML = "Gender: Female";
+            }
+        }
+
+        // Event Object
+        // ******************
+        // We can access the event object in the JavaScript code as shown below:
+
+        function display(event){
+        console.log(event);
+
+        // Event Target
+        // ************
+        // We can get details of the element on which the event took place using event.target
+        console.log(event.target.name);
+        console.log(event.target.value);
+        }
+
+        // Event Bubbling
+        // **************
+        // Div2 is a child of Div1. Both of them have onclick event handlers which execute different functions. When Div2 is clicked, it executes the div2Click() and then the event bubbles up to its parent which is Div1. Now the click event comes to Div1 and it executes div1Click() event handler as well. This is called as event bubbling.
+
+        function div1Click(event){
+        console.log("Div1 was clicked")
+        }
+        function div2Click(event){
+            console.log("Div2 was clicked")
+            event.stopPropagation();    // To stop event bubbling
+        }
+
+        // Event Prevention
+        // ****************
+        // Sometimes, when an event occurs, we may want to stop its further behaviour. For example, we may want to stop a page from getting submitted, if the validations fail or we may want to prevent event bubbling from happening. In such cases if we use         "event.preventDefault();" it will prevent the default behaviour of the event. 
+
+        // In the below JS function, we want that the form should NOT get submitted if the length of the username provided is less than 6 characters.
+
+        function formSubmit(event){
+        if(document.getElementById("usr").value.length<6){
+            document.getElementById("msg").innerText="Username must be atleast 6 chars"
+            event.preventDefault(); // Event Prevention
+            // The page submission will now not happen if the username is less than 6 chars. 
+        }
+        }
+    </script>
+	
+</body>
+</html>

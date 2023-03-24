@@ -1,0 +1,30 @@
+XSS Vulnerability
+******************
+Responsive web pages handle information related to end user.
+
+Example : username and password.
+
+And these information needs to be protected.
+
+A vulnerability is a weakness of system which when exploited can reduce that system’s information assurance.
+
+These vulnerabilities can give way to attacks with intend to access and manipulate application as well as sensitive information.
+
+Hackers can exploit these vulnerabilities to extract user’s private data, like cookies or other session information.
+
+One such vulnerability is Cross site scripting (XSS). It is one among the ten most critical web application security risks as per OWASP Top 10 – 2013.
+
+Cross-Site Scripting (XSS) attacks are nothing but injecting an attack code on the client-side.
+
+XSS vulnerabilities may occur when :
+************************************
+
+    -Inputs provided to the web app are not validated
+
+    -HTML encoding is not applied, then the browser interprets input as code
+
+These XSS vulnerabilities can be prevented by following the below rules:
+
+    - Validation to filter out the user input. Then the browser interprets it as code without malicious content
+
+    - Encoding escapes the user input only as data, not as code so that the browser interprets accordingly

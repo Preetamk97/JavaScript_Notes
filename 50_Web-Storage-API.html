@@ -1,0 +1,78 @@
+<!-- 
+What is web storage?
+********************
+
+Typically, the clients send some information to the server along with the request, which identifies them. This is done by using technologies like sessions, cookies, URL encoding, etc. But in all such cases, we have to pass information along with requests to the server, thus increasing the load on the server.
+
+HTML5 introduced a concept called Web Storage API.
+
+Web Storage is basically a local storage space in the clients hard disk. The data is stored in the clients' local storage rather that being sent to the server. 
+
+For example, if you add items to a cart on a shopping app, they can be stored in the local storage rather than being sent to the server.
+
+Thus, when the page loads again, the data can be retrieved from the local storage itself, thereby reducing load on the server.
+
+Note: Each website has a separate localstorage area allotted to them in the clients machine. Therefore Google cannot access what Amazon has stored in the clients localstorage. Also each browser has a different localstorage. That means what Google stores in localstorage of a client machine using chrome, will not be able to access that data if the user logins from Internet Explorer as IE has its own localstorage.
+
+How to use Web Storage:
+************************
+
+We can store the data using web storage in two ways:
+
+    1. For particular session session storage object is used.
+
+    2. Across sessions local storage object is used.
+
+Web storage API provides following four methods for managing data:
+
+Method	            Description
+======              ============
+setItem(key,value)	Stores value associated with the key
+getItem(key)	    Retrives value associated with the key
+removeItem(key)	    Removes value associated with the key
+clear()	            Clears all (key,value) pair
+
+Data is stored in the form of (key, value) pair and both key and value are stored as String. -->
+
+<html>
+  <head>
+    <script>
+      function save() {
+        sessionStorage.setItem(
+          "username",
+          document.getElementById("username").value
+        );
+      }
+      function remove() {
+        sessionStorage.removeItem("username");
+      }
+      function display() {
+        document.getElementById("data").innerHTML =
+          sessionStorage.getItem("username");
+      }
+    </script>
+  </head>
+  <body>
+    <br />
+    Name : <input type="text" id="username" />
+    <br />
+    <br />
+    <button onclick="save()">Save</button>
+    <br />
+    <button onclick="remove()">Clear</button>
+    <br />
+    <button onclick="display()">Display</button>
+    <br />
+    <p id="data"></p>
+    <br>
+    <br>
+    <div>
+        <ul type="disc">
+            <li>The username, an input from the user can be stored as web storage.</li>
+            <li>On clicking of save button, username is stored in session storage.</li>      
+            <li>On clicking of remove button, username is cleared from session storage.</li>                
+            <li>On clicking of display button, username that is stored in session storage will be displayed.</li>
+        </ul>
+    </div>
+  </body>
+</html>
